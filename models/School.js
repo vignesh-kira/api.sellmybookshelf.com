@@ -1,22 +1,22 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Gig = db.define('gig', {
-  title: {
+const School = db.define('schools', {
+  name: {
     type: Sequelize.STRING
   },
-  technologies: {
+  city: {
     type: Sequelize.STRING
   },
-  description: {
+  address: {
     type: Sequelize.STRING
   },
-  budget: {
+  state: {
     type: Sequelize.STRING
   },
-  contact_email: {
+  postal_code: {
     type: Sequelize.STRING
   }
 });
 
-module.exports = Gig;
+module.exports = School;

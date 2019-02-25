@@ -21,8 +21,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Index route
 app.get('/', (req, res) => res.sendStatus(200));
 
-// Gig routes
-app.use('/gigs', require('./routes/gigs'));
+// User routes
+app.use('/users', require('./controller/Users'));
+
+// School routes
+app.use('/schools', require('./controller/Schools'));
+
+// User Types routes
+app.use('/user-types', require('./controller/UserTypes'));
+
+// Advertisements routes
+app.use('/advertisements', require('./controller/Advertisements'));
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports =  new Sequelize('codegig', 'root', 'password', {
+module.exports =  new Sequelize('sellmybookshelf', 'root', 'password', {
   host: 'localhost',
   dialect: 'mysql',
   operatorsAliases: false,
