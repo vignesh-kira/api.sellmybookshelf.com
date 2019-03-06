@@ -38,6 +38,10 @@ const User = db.define('user', {
   user_type_id: {
     type: Sequelize.STRING
   }
+},{
+  defaultScope: {
+    attributes: { exclude: ['password'] }
+  }
 });
 
 module.exports = User;

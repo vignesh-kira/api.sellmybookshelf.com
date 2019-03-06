@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -14,9 +15,13 @@ const app = express();
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Enable cors for all
+app.use(cors());
 
 // Index route
 app.get('/', (req, res) => res.sendStatus(200));
