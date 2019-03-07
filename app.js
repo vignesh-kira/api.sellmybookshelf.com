@@ -38,6 +38,12 @@ app.use('/user-types', require('./controller/UserTypes'));
 // Advertisements routes
 app.use('/advertisements', require('./controller/Advertisements'));
 
+// Classes routes
+app.use('/classes', require('./controller/Classes'));
+
+// Sections routes
+app.use('/sections', require('./controller/Sections'));
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
