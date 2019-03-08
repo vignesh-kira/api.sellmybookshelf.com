@@ -6,42 +6,54 @@ const Users = require('../models/User');
 router.get('/', (req, res) =>
     Users.findAll()
         .then(users => res.send(users))
-        .catch(err => console.log(err)));
+        .catch(error => res.status(500).send(error)));
 
 // Login
 router.post('/login', (req, res) => {
-  let { email, password} = req.body;
+    let { email, password} = req.body;
 
-  return Users.findOne({ where: {
-      email,
-      password
-    }})
-      .then(user => {
-        if(user == null){
-          res.sendStatus(404);
-        }else{
-          res.status(200).json(user)
-        }
-      })
-      .catch( error => res.status(500).send(error))
+    return Users.findOne({ where: {
+            email,
+            password
+        }})
+        .then(user => {
+            if(user == null){
+                res.sendStatus(404);
+            }else{
+                res.status(200).json(user)
+            }
+        })
+        .catch( error => res.status(500).send(error))
 });
 
-// Login
-router.post('/add', (req, res) => {
-  let { title, technologies, budget, description, contact_email } = req.body;
-  // Make lowercase and remove space after comma
-  technologies = technologies.toLowerCase().replace(/, /g, ',');
+// Register
+router.post('/register', (req, res) => {
+    let { firstname, lastname, studentClass, section, email, phone, password } = req.body;
+    let registration = Object.assign({
+        firstname,
+        lastname,
+        email,
+        phone,
+        password,
+        section_id: section,
+        class_id: studentClass,
+        school_id: '1',
+        user_type_id: '1'
+    });
 
-  // Insert into table
-  Users.create({
-    title,
-    technologies,
-    description,
-    budget,
-    contact_email
-  })
-      .then(user => res.send(user))
-      .catch(err => console.log(err));
+    Users.findOrCreate({
+        where: {
+            phone
+        },
+        defaults: registration
+    }).spread(function (user, created) {
+        if(created){
+            delete user.dataValues.password;
+            res.status(200).json(user);
+        }else{
+            return res.sendStatus(409);
+        }
+    });
 });
 
 module.exports = router;
