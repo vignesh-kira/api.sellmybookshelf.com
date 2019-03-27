@@ -32,6 +32,9 @@ const Advertisement = db.define('advertisements', {
   user_id: {
     type: Sequelize.STRING
   },
+  subject_id: {
+    type: Sequelize.STRING
+  },
 });
 
 module.exports = Advertisement;

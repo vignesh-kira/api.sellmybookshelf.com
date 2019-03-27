@@ -10,18 +10,19 @@ router.get('/', (req, res) =>
 
 // Create
 router.post('/create', (req, res) => {
-	let { title, description, studentClass, book_title, book_author, condition_text, condition_rating, book_seller_price, book_final_price, user_id } = req.body;
+	let { title, description, studentClass, book_title, book_author, condition_text, condition_rating, book_seller_price, book_final_price, user_id, subject_id } = req.body;
 	let advertisement = Object.assign({
 		title,
 		description,
 		book_title,
 		book_author,
 		condition_text,
-		class_id: studentClass,
-		user_id,
 		condition_rating,
 		book_seller_price,
-		book_final_price
+		book_final_price,
+		class_id: studentClass,
+		user_id,
+		subject_id,
 	});
 
 	Advertisement.create(advertisement)

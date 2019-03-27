@@ -44,6 +44,9 @@ app.use('/classes', require('./controller/Classes'));
 // Sections routes
 app.use('/sections', require('./controller/Sections'));
 
-const PORT = process.env.PORT || 6000;
+// Subjects routes
+app.use('/subjects', require('./controller/Subjects'));
+
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
