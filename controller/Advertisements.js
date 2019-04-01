@@ -8,6 +8,15 @@ router.get('/', (req, res) =>
 		.then(advertisements => res.send(advertisements))
 		.catch(err => console.log(err)));
 
+// Get/ Find
+router.get('/:id', (req, res) => {
+	Advertisement.findOne({
+		where: {id:req.params.id}
+	})
+		.then(advertisement => res.status(200).json(advertisement))
+		.catch(error => res.sendStatus(404).send(error));
+});
+
 // Create
 router.post('/create', (req, res) => {
 	let { title, description, studentClass, book_title, book_author, condition_text, condition_rating, book_seller_price, book_final_price, user_id, subject_id } = req.body;
