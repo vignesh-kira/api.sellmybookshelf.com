@@ -8,13 +8,34 @@ router.get('/', (req, res) =>
 		.then(advertisements => res.send(advertisements))
 		.catch(err => console.log(err)));
 
-// Get/ Find
-router.get('/:id', (req, res) => {
+// Get - View (EVERYONE)
+router.get('/view/:id', (req, res) => {
 	Advertisement.findOne({
 		where: {id:req.params.id}
 	})
-		.then(advertisement => res.status(200).json(advertisement))
-		.catch(error => res.sendStatus(404).send(error));
+		.then(advertisement => {
+			if(advertisement == null){
+				res.sendStatus(404);
+			}else{
+				res.status(200).json(advertisement)
+			}
+		})
+		.catch( error => res.sendStatus(500).send(error))
+});
+
+// Get (ONLY AUTHORIZED USER)
+router.post('/:id', (req, res) => {
+	Advertisement.findOne({
+		where: {id:req.params.id, user_id: req.body.user_id }
+	})
+		.then(advertisement => {
+			if(advertisement == null){
+				res.sendStatus(404);
+			}else{
+				res.status(200).json(advertisement)
+			}
+		})
+		.catch( error => res.sendStatus(500).send(error))
 });
 
 // Create
