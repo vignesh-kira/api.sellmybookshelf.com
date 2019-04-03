@@ -1,7 +1,14 @@
 const Sequelize = require('sequelize');
 
-module.exports =  new Sequelize('sellmybookshelf', 'root', 'password', {
-  host: 'localhost',
+const {
+  DATABASE,
+  USERNAME,
+  PASSWORD,
+  HOST
+} = process.env;
+
+module.exports =  new Sequelize(DATABASE, USERNAME, PASSWORD, {
+  host: HOST,
   dialect: 'mysql',
   operatorsAliases: false,
 
