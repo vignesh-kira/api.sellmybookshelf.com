@@ -59,7 +59,29 @@ router.get('/:id', (req, res) => {
         .catch( error => res.sendStatus(500).send(error))
 });
 
-// Register
+// Update
+router.put('/update/:id', (req, res) => {
+    let { firstname, lastname, bazaar_name, studentClass, section_id, email, about  } = req.body;
+
+    let user = Object.assign({
+        firstname,
+        lastname,
+        bazaar_name,
+        class_id: studentClass,
+        section_id,
+        email,
+        about
+    });
+
+    Users.update(user, {
+        returning: true,
+        where: { id: req.params.id }
+    })
+        .then(() => res.status(200).json(req.body))
+        .catch(error => res.sendStatus(400).send(error));
+});
+
+// Register or Create
 router.post('/register', (req, res) => {
     let { firstname, lastname, studentClass, section, email, phone, password } = req.body;
     let registration = Object.assign({
