@@ -1,5 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const Class = require('../models/Class');
+const Subject = require('../models/Subject');
+const AdvertisementStatus = require('../models/AdvertisementStatus');
 
 const Advertisement = db.define('advertisements', {
   title: {
@@ -35,6 +38,13 @@ const Advertisement = db.define('advertisements', {
   subject_id: {
     type: Sequelize.STRING
   },
+  advertisementStatus_id: {
+    type: Sequelize.STRING
+  },
 });
+
+Advertisement.belongsTo(Class, { foreignKey: 'class_id' });
+Advertisement.belongsTo(Subject, { foreignKey: 'subject_id' });
+Advertisement.belongsTo(AdvertisementStatus, { foreignKey: 'advertisementStatus_id' });
 
 module.exports = Advertisement;

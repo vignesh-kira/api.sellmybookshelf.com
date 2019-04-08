@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Advertisement = require('../models/Advertisement');
+const Class = require('../models/Class');
+const Subject = require('../models/Subject');
+const AdvertisementStatus = require('../models/AdvertisementStatus');
 
 // Get Advertisements list
 router.get('/', (req, res) =>
@@ -11,7 +14,18 @@ router.get('/', (req, res) =>
 // Get - View (EVERYONE)
 router.get('/view/:id', (req, res) => {
 	Advertisement.findOne({
-		where: {id:req.params.id}
+		where: {id:req.params.id},
+		include: [
+			{
+				model: AdvertisementStatus,
+			},
+			{
+				model: Subject,
+			},
+			{
+				model: Class,
+			}
+		]
 	})
 		.then(advertisement => {
 			if(advertisement == null){
@@ -38,6 +52,7 @@ router.post('/create', (req, res) => {
 		class_id: studentClass,
 		user_id,
 		subject_id,
+		advertisementStatus_id: 4
 	});
 
 	Advertisement.create(advertisement)
