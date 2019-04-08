@@ -7,7 +7,19 @@ const AdvertisementStatus = require('../models/AdvertisementStatus');
 
 // Get Advertisements list
 router.get('/', (req, res) =>
-	Advertisement.findAll()
+	Advertisement.findAll({
+		include: [
+			{
+				model: AdvertisementStatus,
+			},
+			{
+				model: Subject,
+			},
+			{
+				model: Class,
+			}
+		]
+	})
 		.then(advertisements => res.send(advertisements))
 		.catch(err => console.log(err)));
 
