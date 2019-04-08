@@ -1,6 +1,11 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
+const Class = require('../models/Class');
+const School = require('../models/School');
+const Section = require('../models/Section');
+const UserType = require('../models/UserType');
+
 const User = db.define('user', {
   fullname: {
     type: Sequelize.STRING
@@ -49,5 +54,10 @@ const User = db.define('user', {
     attributes: { exclude: ['password'] }
   }
 });
+
+User.belongsTo(UserType, { foreignKey: 'user_type_id' });
+User.belongsTo(School, { foreignKey: 'school_id' });
+User.belongsTo(Class, { foreignKey: 'class_id' });
+User.belongsTo(Section, { foreignKey: 'section_id' });
 
 module.exports = User;

@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Users = require('../models/User');
+const Class = require('../models/Class');
+const Section = require('../models/Section');
+const School = require('../models/School');
+const UserType = require('../models/UserType');
 
 // Get users list
 router.get('/', (req, res) =>
@@ -24,6 +28,35 @@ router.post('/login', (req, res) => {
             }
         })
         .catch( error => res.status(500).send(error))
+});
+
+// Get - View (EVERYONE)
+router.get('/:id', (req, res) => {
+    Users.findOne({
+        where: {id:req.params.id},
+        include: [
+            {
+                model: UserType,
+            },
+            {
+                model: School,
+            },
+            {
+                model: Class,
+            },
+            {
+                model: Section,
+            }
+        ]
+    })
+        .then(user => {
+            if(user == null){
+                res.sendStatus(404);
+            }else{
+                res.status(200).json(user)
+            }
+        })
+        .catch( error => res.sendStatus(500).send(error))
 });
 
 // Register
