@@ -87,6 +87,32 @@ router.post('/:id', (req, res) => {
 		.catch( error => res.sendStatus(500).send(error))
 });
 
+// Get My Ads (ONLY AUTHORIZED USER)
+router.get('/myads/:id', (req, res) => {
+	Advertisement.findAll({
+		where: {user_id:req.params.id},
+		include: [
+			{
+				model: AdvertisementStatus,
+			},
+			{
+				model: Subject,
+			},
+			{
+				model: Class,
+			}
+		]
+	})
+		.then(advertisement => {
+			if(advertisement == null){
+				res.sendStatus(404);
+			}else{
+				res.status(200).json(advertisement)
+			}
+		})
+		.catch( error => res.sendStatus(500).send(error))
+});
+
 // Update
 router.put('/update/:id', (req, res) => {
 	let { title, description, studentClass, book_title, book_author, condition_text, condition_rating, book_seller_price, book_final_price, subject_id } = req.body;
