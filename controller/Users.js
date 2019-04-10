@@ -14,10 +14,10 @@ router.get('/', (req, res) =>
 
 // Login
 router.post('/login', (req, res) => {
-    let { email, password} = req.body;
+    let { phone, password} = req.body;
 
     return Users.findOne({ where: {
-            email,
+            phone,
             password
         }})
         .then(user => {
