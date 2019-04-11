@@ -6,22 +6,39 @@ const Subject = require('../models/Subject');
 const AdvertisementStatus = require('../models/AdvertisementStatus');
 
 // Get Advertisements list
-router.get('/', (req, res) =>
-	Advertisement.findAll({
-		include: [
-			{
-				model: AdvertisementStatus,
-			},
-			{
-				model: Subject,
-			},
-			{
-				model: Class,
-			}
-		]
-	})
+router.get('/', (req, res) => {
+	const class_id = req.query.studentClass;
+	const subject_id = req.query.subject;
+	const offset = req.query.page * 10;
+	const limit = 10;
+	let where = {};
+
+	if(class_id && subject_id)
+		where = {
+			class_id,
+			subject_id
+		};
+
+	Advertisement.findAndCountAll({
+			where,
+			include: [
+				{
+					model: AdvertisementStatus,
+				},
+				{
+					model: Subject,
+				},
+				{
+					model: Class,
+				}
+			],
+			offset, // Number from where we want the data to be retrieved
+			limit // Number of records to be retrieved
+		}
+	)
 		.then(advertisements => res.send(advertisements))
-		.catch(err => console.log(err)));
+		.catch(err => console.log(err))
+});
 
 // Get - View (EVERYONE)
 router.get('/view/:id', (req, res) => {
