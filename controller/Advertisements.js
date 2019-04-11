@@ -11,13 +11,10 @@ router.get('/', (req, res) => {
 	const subject_id = req.query.subject;
 	const offset = req.query.page * 10;
 	const limit = 10;
-	let where = {};
-
-	if(class_id && subject_id)
-		where = {
-			class_id,
-			subject_id
-		};
+	const where = Object.assign( {},
+		class_id && { class_id },
+		subject_id && { subject_id }
+	);
 
 	Advertisement.findAndCountAll({
 			where,
