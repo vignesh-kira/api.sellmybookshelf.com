@@ -51,6 +51,6 @@ app.use('/subjects', require('./controller/Subjects'));
 // Subjects routes
 app.use('/advertisementStatus', require('./controller/AdvertisementStatus'));
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
