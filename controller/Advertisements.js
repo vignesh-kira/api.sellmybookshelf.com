@@ -152,4 +152,15 @@ router.put('/update/:id', (req, res) => {
 		.catch(error => res.sendStatus(400).send(error));
 });
 
+// Delete (ONLY AUTHORIZED USER)
+router.delete('/:id', (req, res) => {
+	Advertisement.destroy({
+		where: { id:req.params.id }
+	})
+		.then(advertisement => {
+			res.status(200).json(advertisement);
+		})
+		.catch( error => res.sendStatus(500).send(error))
+});
+
 module.exports = router;
