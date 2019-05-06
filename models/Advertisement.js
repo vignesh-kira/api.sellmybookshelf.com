@@ -29,6 +29,9 @@ const Advertisement = db.define('advertisements', {
   book_final_price: {
     type: Sequelize.STRING
   },
+  history: {
+    type: Sequelize.STRING
+  },
   class_id: {
     type: Sequelize.STRING
   },
