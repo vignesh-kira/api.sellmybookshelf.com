@@ -29,6 +29,9 @@ router.get('/', (req, res) => {
 					model: Class,
 				}
 			],
+			order: [
+				['createdAt', 'DESC']
+			],
 			offset, // Number from where we want the data to be retrieved
 			limit // Number of records to be retrieved
 		}
@@ -115,6 +118,9 @@ router.get('/myads/:id', (req, res) => {
 			{
 				model: Class,
 			}
+		],
+		order: [
+			['createdAt', 'DESC']
 		]
 	})
 		.then(advertisement => {
