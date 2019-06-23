@@ -49,7 +49,13 @@ app.use('/sections', require('./controller/Sections'));
 app.use('/subjects', require('./controller/Subjects'));
 
 // Subjects routes
-app.use('/advertisementStatus', require('./controller/AdvertisementStatus'));
+app.use('/advertisementStatuses', require('./controller/AdvertisementStatuses'));
+
+// Order Statuses routes
+app.use('/orderStatuses', require('./controller/OrderStatuses'));
+
+// Orders routes
+app.use('/orders', require('./controller/Orders'));
 
 const PORT = process.env.PORT;
 
