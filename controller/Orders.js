@@ -5,6 +5,12 @@ const Advertisement = require('../models/Advertisement');
 const User = require('../models/User');
 const OrderStatus = require('../models/OrderStatus');
 
+// Get Orders list
+router.get('/', (req, res) =>
+	Orders.findAll()
+		.then(orders => res.send(orders))
+		.catch(err => console.log(err)));
+
 // Get Advertisements list
 // router.get('/', (req, res) => {
 // 	const class_id = req.query.studentClass;

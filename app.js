@@ -57,6 +57,12 @@ app.use('/orderStatuses', require('./controller/OrderStatuses'));
 // Orders routes
 app.use('/orders', require('./controller/Orders'));
 
+// Payment Methods routes
+app.use('/paymentMethods', require('./controller/PaymentMethods'));
+
+// Payment Statuses routes
+app.use('/paymentStatuses', require('./controller/PaymentStatuses'));
+
 const PORT = process.env.PORT;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
