@@ -3,6 +3,7 @@ const db = require('../config/database');
 const User = require('../models/User');
 const Advertisement = require('../models/Advertisement');
 const OrderStatus = require('../models/OrderStatus');
+const Payment = require('../models/Payment');
 
 const Order = db.define('orders', {
   name: {
@@ -19,11 +20,15 @@ const Order = db.define('orders', {
   },
   orderStatus_id: {
     type: Sequelize.STRING
+  },
+  payments_id: {
+    type: Sequelize.STRING
   }
 });
 
 Order.belongsTo(User, { foreignKey: 'buyer_id' });
 Order.belongsTo(Advertisement, { foreignKey: 'advertisements_id' });
 Order.belongsTo(OrderStatus, { foreignKey: 'orderStatus_id' });
+Order.belongsTo(Payment, { foreignKey: 'payments_id' });
 
 module.exports = Order;

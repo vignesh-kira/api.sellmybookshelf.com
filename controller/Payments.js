@@ -1,15 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Orders = require('../models/Order');
-const Advertisement = require('../models/Advertisement');
-const User = require('../models/User');
-const OrderStatus = require('../models/OrderStatus');
-const Payment = require('../models/Payment');
+const Payments = require('../models/Payment');
+const PaymentMethod = require('../models/PaymentMethod');
+const PaymentStatus = require('../models/PaymentStatus');
 
-// Get Orders list
+// Get Payments list
 router.get('/', (req, res) =>
-	Orders.findAll()
-		.then(orders => res.send(orders))
+	Payments.findAll()
+		.then(payments => res.send(payments))
 		.catch(err => console.log(err)));
 
 // Get Advertisements list
